@@ -1,0 +1,20 @@
+{% extends "admin/edit_inline/tabular.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+Template: 
+
+<script type="text/javascript">
+    function beep(){
+      alert('beep');
+    }
+    
+    (function($) {
+      $("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr").tabularFormset({
+        prefix: "{{ inline_admin_formset.formset.prefix }}",
+        adminStaticPrefix: '{% static "admin/" %}',
+        addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|capfirst as verbose_name %}Add another Row{{ verbose_name }}{% endblocktrans %}",
+        deleteText: "{% trans 'Remove' %}"
+      });
+      $(".add-row a").click(beep);
+    })(django.jQuery);
+    </script>
